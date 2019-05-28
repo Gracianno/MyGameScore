@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MyGameScore.Models.GameScore>
+
+@{
+    ViewData["Title"] = "Index";
+
+    int maior = -1;
+    int cont = -1;
+    foreach(var item in Model)
+    {
+        if(item.score > maior)
+        {
+            maior = item.score;
+            cont++;
+        }
+    }
+}
+
+<h2></h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <h3>Resultados</h3>
+            </th>
+            <th>
+                @Model.First().date.ToString("dd/MM/yyyy") até @Model.Last().date.ToString("dd/MM/yyyy")
+            </th>
+            <tr>
+        </tr>
+       
+    </thead>
+    <tbody>
+        <tr>
+            <td>Jogos Disputados</td>
+            <td>@Model.Count().ToString()</td>
+
+        </tr>
+        <tr>
+            <td>Total de Pontos Marcados na Temporada</td>
+            <td>@Model.Sum(obj => obj.score).ToString("F2")</td>
+
+        </tr>
+        <tr>
+            <td>Media de Pontos por Jogo</td>
+            <td>@Model.Average(obj => obj.score).ToString("F2")</td>
+        </tr>
+        <tr>
+            <td>Maior Pontuação em um Jogo</td>
+            <td>@Model.Max(obj => obj.score).ToString("F2")</td>
+        </tr>
+        <tr>
+            <td>Menor Pontuação em um jogo</td>
+            <td>@Model.Min(obj => obj.score).ToString("F2")</td>
+        </tr>
+        <tr>
+            <td>Quantidade de Vezes que Bateu o Próprio Jogo</td>
+            <td>@Html.Raw(cont)</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>

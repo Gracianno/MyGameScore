@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using MyGameScore.Models;
 
 namespace MyGameScore
 {
@@ -33,6 +35,11 @@ namespace MyGameScore
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<MyGameScoreContext>(options =>
+            options.UseMySql(Configuration.GetConnectionString("MyGameScoreContext"), builder =>
+                    builder.MigrationsAssembly("MyGameScore")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +63,7 @@ namespace MyGameScore
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=GameScores}/{action=Index}/{id?}");
             });
         }
     }
