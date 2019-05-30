@@ -37,8 +37,11 @@ namespace MyGameScore
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<MyGameScoreContext>(options =>
-            options.UseMySql(Configuration.GetConnectionString("MyGameScoreContext"), builder =>
-                    builder.MigrationsAssembly("MyGameScore")));
+               options.UseSqlServer(Configuration.GetConnectionString("MyGameScoreContext"), builder =>
+            builder.MigrationsAssembly("MyGameScore")));
+
+            //options.UseMySql(Configuration.GetConnectionString("MyGameScoreContext"), builder =>
+            //builder.MigrationsAssembly("MyGameScore")));
 
         }
 

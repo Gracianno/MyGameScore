@@ -8,6 +8,7 @@ namespace MyGameScore.Models
 {
     public class GameScore
     {
+
         public int Id { get; set; }
 
         [Range(0, 1000, ErrorMessage = "{0} must be from {1} to {2}")]

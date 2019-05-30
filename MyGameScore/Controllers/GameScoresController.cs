@@ -21,7 +21,14 @@ namespace MyGameScore.Controllers
         // GET: GameScores
         public async Task<IActionResult> Index()
         {
-            return View(await _context.GameScore.ToListAsync());
+            var v = await _context.GameScore.ToListAsync();
+            var gameScore = await _context.GameScore
+      .FirstOrDefaultAsync();
+            if(gameScore == null)
+            {
+                return RedirectToAction(nameof(Create));
+            }
+            return View(v);
         }
 
         // GET: GameScores/Details/5
